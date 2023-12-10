@@ -1,0 +1,189 @@
+body {
+  background-image: url(/img/dark\ blue\ background.jpg);
+}
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgb(1, 1, 9), 0 0 10px rgb(1, 1, 9),
+      0 0 15px rgb(1, 1, 9);
+  }
+  50% {
+    box-shadow: 0 0 5px rgb(1, 1, 9), 0 0 20px rgb(1, 1, 9),
+      0 0 25px rgb(1, 1, 9);
+  }
+  100% {
+    box-shadow: 0 0 5px rgb(1, 1, 9), 0 0 10px rgb(1, 1, 9),
+      0 0 15px rgb(1, 1, 9);
+  }
+}
+.date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+}
+
+.title {
+  margin-left: 850px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+}
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Josefin Sans", sans-serif;
+  color: white;
+  font-size: 20px;
+}
+
+.date {
+  margin-left: 150px;
+}
+
+.wrapper {
+  margin: 0px 500px 0px 500px;
+  padding-right: 250px;
+  padding-bottom: 400px;
+  padding-left: 50px;
+  padding-top: 50px;
+  animation: glow 2s infinite;
+  background: rgba(1, 7, 34, 0.19);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14.9px);
+  -webkit-backdrop-filter: blur(14.9px);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.shadow__btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+}
+
+.shadow__btn {
+  background: rgb(1, 1, 9);
+  box-shadow: 0 0 25px rgb(1, 1, 9);
+}
+
+.shadow__btn:hover {
+  box-shadow: 0 0 5px rgb(1, 1, 9), 0 0 25px rgb(1, 1, 9), 0 0 50px rgb(1, 1, 9),
+    0 0 100px rgb(1, 1, 9);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#new {
+  padding: 20px;
+  margin-top: 20px;
+  margin-left: 600px;
+  width: 650px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.19);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14.9px);
+  -webkit-backdrop-filter: blur(14.9px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: glow 2s infinite;
+}
+
+.todo {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 20px;
+}
+
+.eachtodo {
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  border: 2px solid #ffffff50;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.eachpost {
+  margin-left: 20px;
+  font-family: inter;
+}
+
+.logos {
+  margin-top: 22px;
+  display: flex;
+  gap: 40px;
+}
+
+.edit:hover {
+  transform: scale(1.1);
+}
+
+.delete:hover {
+  transform: scale(1.2);
+}
+.delete {
+  margin-bottom: 25px;
+}
+.btn.btn-danger {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div>
+        <h1 class="title">To-Do List</h1>
+        <% let today = new Date(); %>
+        
+        </div>
+        
+    
+    <section class="wrapper">
+      <p class="date">DATE : <%= today.toLocaleDateString(); %></p>
+        <div class="todo">
+            <% if(locals.posts.length > 0) { %>
+              <% locals.posts.forEach(post => { %>
+                <div class="eachtodo">
+                    <p class="eachpost"><%= post.todo %></p>
+                    <section class="logos">
+                        <img src="img/edit-3.png" alt="" height="20px" class="edit" onclick="openEditModal('<%= post.todo %>')">
+                        <form method="POST" action="/submit/<%= post.id %>?_method=DELETE" style="width: 50px;">
+                            <button type="submit" class="btn btn-danger"><img src="img/trash-2.png" alt="" height="20px" class="delete"></button>
+                        </form>
+                    </section>
+                </div>
+            <% }) %>
+                  
+                <div class="main">
+              <% } else { %>
+                <p>Add a new Post</p>
+              <% } %>
+              
+        
+    </div>
+    </section>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <% locals.posts.forEach(post =>{%>
+          <form class="update-container" method="POST" action="submit/<%= post.id %>?_method=PATCH">
+          <input type="hidden" name="_method" value="PATCH"> <!-- Correct method override syntax -->
+          <span class="close" onclick="closeEditModal()">&times;</span>
+          <h2>Edit To-Do</h2>
+          <input type="text" id="editedTodo" name="editedTodo" placeholder="Edit your to-do">
+          <button type="submit" class="btn btn-primary">Update List</button>
+        </form>
+      <% }); %>
+     </div>
+  </div>
+  
+    
+    <form action="/submit" method="post">
+        <input type="text" name="new" id="new" placeholder="Add a new task">
+        <div class="task">
+            <button class="shadow__btn">Add task</button>
+        </div>
+    </form>
+
+
+    <script>
+      function openEditModal(todo) {
+          document.getElementById("editModal").style.display = "block";
+          document.getElementById("editedTodo").value = todo;
+      }
+  
+      function closeEditModal() {
+          document.getElementById("editModal").style.display = "none";
+      }
+  
+      function updateTodo() {
+          const updatedTodo = document.getElementById("editedTodo").value;
+  
+  
+          closeEditModal();
+      }
+  </script>
+    
+    
+</body>
+</html>
