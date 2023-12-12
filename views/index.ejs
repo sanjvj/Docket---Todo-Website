@@ -43,19 +43,26 @@
     </div>
     </section>
 
+  
     <div id="editModal" class="modal">
       <div class="modal-content">
-        <% locals.posts.forEach(post =>{%>
-          <form class="update-container" method="POST" action="submit/<%= post.id %>?_method=PATCH">
-          <input type="hidden" name="_method" value="PATCH"> <!-- Correct method override syntax -->
-          <span class="close" onclick="closeEditModal()">&times;</span>
-          <h2>Edit To-Do</h2>
-          <input type="text" id="editedTodo" name="editedTodo" placeholder="Edit your to-do">
-          <button type="submit" class="btn btn-primary">Update List</button>
-        </form>
-      <% }); %>
-     </div>
-  </div>
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Edit To-Do</h2>
+    
+        <% locals.posts.forEach(post => { %>
+          <form class="update-container" id="updateForm<%= post.id %>" 
+                method="POST" action="/submit/<%= post.id %>?_method=PUT">
+            <input type="hidden" name="_method" value="PATCH">
+            <input type="text" id="editedTodo<%= post.id %>" name="editedTodo" 
+                   placeholder="Edit your to-do" value="<%= post.todo %>">
+            <button type="submit" class="btn btn-primary">Update List</button>
+          </form>
+        <% }); %>
+      </div>
+    </div>
+    
+
+
   
     
     <form action="/submit" method="post">
@@ -67,22 +74,24 @@
 
 
     <script>
-      function openEditModal(todo) {
-          document.getElementById("editModal").style.display = "block";
-          document.getElementById("editedTodo").value = todo;
+      function openEditModal(todo, postId) {
+        document.getElementById("editModal").style.display = "block";
+        document.getElementById(`editedTodo${postId}`).value = todo;
       }
-  
+    
       function closeEditModal() {
-          document.getElementById("editModal").style.display = "none";
+        document.getElementById("editModal").style.display = "none";
       }
-  
-      function updateTodo() {
-          const updatedTodo = document.getElementById("editedTodo").value;
-  
-  
-          closeEditModal();
+    
+      function updateTodo(postId) {
+        const updatedTodo = document.getElementById(`editedTodo${postId}`).value;
+    
+        // Handle the update logic here, for example, submit the form using AJAX
+    
+        closeEditModal();
       }
-  </script>
+    </script>
+    
     
     
 </body>
