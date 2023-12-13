@@ -24,10 +24,10 @@
             <% if(locals.posts.length > 0) { %>
               <% locals.posts.forEach(post => { %>
                 <div class="eachtodo">
-                    <p class="eachpost"><%= post.todo %></p>
+                    <p class="eachpost" data-id="<%= post.id %>"><%= post.todo %></p>
                     <section class="logos">
-                        <img src="img/edit-3.png" alt="" height="20px" class="edit" onclick="openEditModal('<%= post.todo %>')">
-                        <form method="POST" action="/submit/<%= post.id %>?_method=DELETE" style="width: 50px;">
+                      <img src="img/edit-3.png" alt="" height="20px" class="edit" onclick="openEditModal('<%= post.todo %>', <%= post.id %>)">
+                      <form method="POST" action="/submit/<%= post.id %>?_method=DELETE" style="width: 50px;">
                             <button type="submit" class="btn btn-danger"><img src="img/trash-2.png" alt="" height="20px" class="delete"></button>
                         </form>
                     </section>
@@ -36,7 +36,7 @@
                   
                 <div class="main">
               <% } else { %>
-                <p>Add a new Post</p>
+                <p class="newpost">Add a new Post</p>
               <% } %>
               
         
@@ -49,17 +49,10 @@
         <span class="close" onclick="closeEditModal()">&times;</span>
         <h2>Edit To-Do</h2>
     
-        <% locals.posts.forEach(post => { %>
-          <form class="update-container" id="updateForm<%= post.id %>" 
-                method="POST" action="/submit/<%= post.id %>?_method=PUT">
-            <input type="hidden" name="_method" value="PATCH">
-            <input type="text" id="editedTodo<%= post.id %>" name="editedTodo" 
-                   placeholder="Edit your to-do" value="<%= post.todo %>">
-            <button type="submit" class="btn btn-primary">Update List</button>
-          </form>
-        <% }); %>
+        <div id="editFormContainer" ></div>
       </div>
     </div>
+    
     
 
 
@@ -76,20 +69,59 @@
     <script>
       function openEditModal(todo, postId) {
         document.getElementById("editModal").style.display = "block";
-        document.getElementById(`editedTodo${postId}`).value = todo;
+      
+        // Clear the container before adding new form
+        document.getElementById("editFormContainer").innerHTML = '';
+      
+        // Create a form dynamically for the specific post
+        const form = document.createElement('form');
+        form.className = 'update-container';
+        form.id = `updateForm${postId}`;
+        form.method = 'POST';
+        form.action = `/submit/${postId}?_method=PUT`;
+      
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = '_method';
+        hiddenInput.value = 'PATCH';
+      
+        const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.id = `editedTodo${postId}`;
+        inputField.name = 'editedTodo';
+        inputField.placeholder = 'Edit your to-do';
+        inputField.value = todo;
+        inputField.classList.add('custom-input-style');
+
+
+        const submitButton = document.createElement('button');
+        submitButton.type = 'submit';
+        submitButton.className = 'btn btn-primary';
+        submitButton.textContent = 'Update List';
+        submitButton.classList.add('custom-button');
+      
+        form.appendChild(hiddenInput);
+        form.appendChild(inputField);
+        form.appendChild(submitButton);
+      
+        document.getElementById("editFormContainer")  .appendChild(form);
       }
+   
+
+function closeEditModal() {
+  document.getElementById("editModal").style.display = "none";
+}
+
+function updateTodo(postId) {
+  const updatedTodo = document.getElementById(`editedTodo${postId}`).value;
+
+
+
+  closeEditModal();
+}
+
     
-      function closeEditModal() {
-        document.getElementById("editModal").style.display = "none";
-      }
-    
-      function updateTodo(postId) {
-        const updatedTodo = document.getElementById(`editedTodo${postId}`).value;
-    
-        // Handle the update logic here, for example, submit the form using AJAX
-    
-        closeEditModal();
-      }
+      
     </script>
     
     
