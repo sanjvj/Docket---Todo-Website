@@ -7,8 +7,12 @@ SETUP:
 Clone the project to your local machine
 
 Go to terminal -> 
+
+
 npm init -y
+
 npm i express
+
 npm i body-parser
 
 Run:
